@@ -5,12 +5,14 @@
  */
 package Model;
 
+import java.io.Serializable;
+
 /**
  * This class configurates a doubly chained node
  * @author Daniel Jiménez Chísica
  * @since 12 March 2017
  */
-public class DoublyChainedNode {
+public class DoublyChainedNode implements Serializable{
     
     /**
      * This constructor initializes a doubly chained node with its object, its

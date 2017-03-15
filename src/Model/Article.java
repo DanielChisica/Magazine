@@ -5,12 +5,14 @@
  */
 package Model;
 
+import java.io.Serializable;
+
 /**
  * The class Article contains the structure of a magazine article 
  * @author Daniel Jiménez Chísica
  * @since 12 March 2017
  */
-public class Article {
+public class Article implements Serializable{
     private String title;
     private String bodyText;
     private String urlImage;

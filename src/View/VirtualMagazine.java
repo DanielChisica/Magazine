@@ -17,7 +17,16 @@ import Model.*;
 import Controller.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,7 +42,22 @@ public class VirtualMagazine extends javax.swing.JFrame {
      */
     public VirtualMagazine() {
         initComponents();
-        
+        read();
+        try {
+            paintThePage(mag.getNde());
+        } catch (Exception e) {
+        }
+        this.addWindowListener(new java.awt.event.WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e) {
+                try {
+                    save(); //To change body of generated methods, choose Tools | Templates.
+                } catch (IOException ex) {
+                    Logger.getLogger(Magazine.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+          
+        });
        //jLabel3.setIcon(new ImageIcon(getClass().getResource("/Resources/01.jpg")));
         
     }
@@ -322,6 +346,41 @@ public class VirtualMagazine extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void save() throws IOException {
+       FileOutputStream fos=null;
+       try{
+       fos= new FileOutputStream("mag.obj");
+       ObjectOutputStream oos= new ObjectOutputStream(fos);
+       oos.writeObject((Object)mag);
+       oos.close();
+       fos.close();
+       }
+       
+       catch (FileNotFoundException ex){
+           Logger.getLogger(VirtualMagazine.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       
+       finally{
+           try {
+               fos.close();
+            } catch (IOException ex) {
+                Logger.getLogger(VirtualMagazine.class.getName()).log(Level.SEVERE, null, ex);
+            }
+       }
+    }
+       
+     public void read(){
+        try {
+            FileInputStream fis = new FileInputStream("mag.obj");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            mag = (Magazine) ois.readObject();
+            fis.close();
+            ois.close();
+        } catch (Exception e) {
+        }
+        
+    }   
+    
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed

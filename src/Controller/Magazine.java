@@ -5,6 +5,7 @@
  */
 package Controller;
 import Model.DoublyChainedNode;
+import java.io.Serializable;
 
 /**
  * The Magazine is based in a set of doubly chained nodes, this class contains
@@ -12,7 +13,23 @@ import Model.DoublyChainedNode;
  * @author Daniel Jiménez Chísica
  * @since 12 March 2017
  */
-public class Magazine {
+public class Magazine implements Serializable{
+    
+    /**
+     * Returns the first node of the magazine
+     * @return The main node
+     */
+    public DoublyChainedNode getNde() {
+        return nde;
+    }
+    
+    /**
+     * Sets the main node of the magazine
+     * @param nde The input node
+     */
+    public void setNde(DoublyChainedNode nde) {
+        this.nde = nde;
+    }
     private DoublyChainedNode nde;
     
     /**
