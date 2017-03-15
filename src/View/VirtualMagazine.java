@@ -251,9 +251,14 @@ public class VirtualMagazine extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Creates and adds an article to the magazine
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
         
         if (jTextField1.getText()=="" || jTextArea2.getText()=="" || jComboBox1.getSelectedIndex()==0) {
             JOptionPane.showMessageDialog(null, "Please fill all the fields to make a complete article");
@@ -320,7 +325,10 @@ public class VirtualMagazine extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
-
+    /**
+     * A desk test
+     * @param evt 
+     */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         Iterator it=mag.iterator();
@@ -332,7 +340,12 @@ public class VirtualMagazine extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed
-
+    
+    /**
+     * This method paints the current page according to
+     * the last article, also creates the buttons previous and next
+     * @param node The node to which the article and its components are to be extracted
+     */
     public void paintThePage(DoublyChainedNode node){  
         jTextField2.setText(((Article)(node.getObj())).getTitle());
         jTextArea2.setText(((Article)(node.getObj())).getBodyText());

@@ -57,8 +57,9 @@ public class Magazine {
        return search(element)!=null;
     }
     
-   /**
+  /**
    * Method used to create an iterator about the list
+   * @return The iterator about the list
    */
   public java.util.Iterator iterator() { 
     return new MyIterator(); 
