@@ -58,8 +58,8 @@ public class VirtualMagazine extends javax.swing.JFrame {
             }
           
         });
-       //jLabel3.setIcon(new ImageIcon(getClass().getResource("/Resources/01.jpg")));
-        
+        setIconImage(new ImageIcon(getClass().getResource("/Resources/11.png")).getImage());
+        this.setTitle("Magazine");
     }
 
     /**
@@ -345,7 +345,11 @@ public class VirtualMagazine extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
+    /**
+     * Saves the currents stored articles in the magazine
+     * @throws IOException 
+     */
     public void save() throws IOException {
        FileOutputStream fos=null;
        try{
@@ -368,7 +372,10 @@ public class VirtualMagazine extends javax.swing.JFrame {
             }
        }
     }
-       
+     
+    /**
+     * Read the file of persistence
+     */
      public void read(){
         try {
             FileInputStream fis = new FileInputStream("mag.obj");
