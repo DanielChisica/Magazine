@@ -44,7 +44,7 @@ public class VirtualMagazine extends javax.swing.JFrame {
         initComponents();
         read();
         try {
-            paintThePage(mag.getNde());
+           // paintThePage(mag.getNde());
         } catch (Exception e) {
         }
         this.addWindowListener(new java.awt.event.WindowAdapter(){
@@ -339,9 +339,9 @@ public class VirtualMagazine extends javax.swing.JFrame {
             }
             
             Article art1=new Article(jTextField1.getText(), jTextArea1.getText(),selectedURL);
-            mag.placeInTheEnd(art1);
+            magazine1.placeInTheEnd(art1);
             
-            paintThePage(mag.search(art1));
+           paintThePage();
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -355,7 +355,7 @@ public class VirtualMagazine extends javax.swing.JFrame {
        try{
        fos= new FileOutputStream("mag.obj");
        ObjectOutputStream oos= new ObjectOutputStream(fos);
-       oos.writeObject((Object)mag);
+       oos.writeObject((Object)magazine1);
        oos.close();
        fos.close();
        }
@@ -380,7 +380,7 @@ public class VirtualMagazine extends javax.swing.JFrame {
         try {
             FileInputStream fis = new FileInputStream("mag.obj");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            mag = (Magazine) ois.readObject();
+            magazine1 = (Magazine) ois.readObject();
             fis.close();
             ois.close();
         } catch (Exception e) {
@@ -397,7 +397,7 @@ public class VirtualMagazine extends javax.swing.JFrame {
      */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Iterator it=mag.iterator();
+        Iterator it=magazine1.iterator();
         while (it.hasNext()) {  
             Article art=(Article) it.next();
             System.out.println(art.getTitle());
@@ -412,32 +412,32 @@ public class VirtualMagazine extends javax.swing.JFrame {
      * the last article, also creates the buttons previous and next
      * @param node The node to which the article and its components are to be extracted
      */
-    public void paintThePage(DoublyChainedNode node){  
-        jTextField2.setText(((Article)(node.getObj())).getTitle());
-        jTextArea2.setText(((Article)(node.getObj())).getBodyText());
-        jLabel3.setIcon(new ImageIcon(getClass().getResource(((Article)(node.getObj())).getUrlImage())));
-        jButton2.setVisible(true);
-        jButton3.setVisible(true);
+    public void paintThePage(){
         
-        if (node.getPrevious()==null) {
-            jButton2.setVisible(false);
-        }
+      jTextField2.setText(((Article)(magazine1.getCurrent())).getTitle());
+      jTextArea2.setText(((Article)(magazine1.getCurrent())).getBodyText());
+      jLabel3.setIcon(new ImageIcon(getClass().getResource(((Article)(magazine1.getCurrent())).getUrlImage())));
+      jButton2.setVisible(true);
+      jButton3.setVisible(true);
+        
+
+       
         jButton2.addActionListener(new ActionListener() { 
             @Override
-            public void actionPerformed(ActionEvent e) {
-                      paintThePage(node.getPrevious());
-            }
+            public void actionPerformed(ActionEvent e) {  
+                  magazine1.movetoPrevious();
+                  paintThePage();
+           }
         } );
         
-         if (node.getNext()==null) {
-            jButton3.setVisible(false);
-        }
+      
          jButton3.addActionListener(new ActionListener() { 
-            @Override
+           @Override
             public void actionPerformed(ActionEvent e) {
-
-                    paintThePage(node.getNext());
-            }
+                        magazine1.movetoNext();
+                        paintThePage();
+                    
+           }
         } );
     }
     
@@ -476,7 +476,8 @@ public class VirtualMagazine extends javax.swing.JFrame {
         });
     }
     
-    Magazine mag=new Magazine();
+    Magazine magazine1=new Magazine();
+   
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

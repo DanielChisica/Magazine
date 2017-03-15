@@ -31,6 +31,41 @@ public class Magazine implements Serializable{
         this.nde = nde;
     }
     private DoublyChainedNode nde;
+
+    public DoublyChainedNode getPresent() {
+        return present;
+    }
+
+    public void setPresent(DoublyChainedNode present) {
+        this.present = present;
+    }
+    private DoublyChainedNode present;
+    
+     public Object getCurrent(){
+        return present.getObj();
+    }
+    
+    public void movetoNext(){
+        if (present!=null) {
+            if (present.getNext()!=null) {
+                present=present.getNext();
+            }
+        }
+        else{
+            System.out.println("Theres no a previous node");
+        }
+    }
+    
+    public void movetoPrevious(){
+         if (present!=null) {
+            if (present.getPrevious()!=null) {
+                present=present.getPrevious();
+            }
+        }
+        else{
+            System.out.println("Theres no a previous node");
+        }
+    }
     
     /**
      * Puts an article in the end of the list
@@ -107,7 +142,7 @@ public class Magazine implements Serializable{
       return null;
     }
   
-      
+   
     /**
      * Shows a message indicating that isn't possible remove an object of the
      * iterator
@@ -117,6 +152,3 @@ public class Magazine implements Serializable{
     }
   }
 }
-
-
-
