@@ -110,6 +110,7 @@ public class VirtualMagazine extends javax.swing.JFrame {
 
         jTextField2.setEditable(false);
         jTextField2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jTextField2.setBorder(null);
         jTextField2.setFocusable(false);
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,10 +118,13 @@ public class VirtualMagazine extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.setBorder(null);
+
         jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
         jTextArea2.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jTextArea2.setRows(5);
+        jTextArea2.setBorder(null);
         jTextArea2.setFocusable(false);
         jScrollPane2.setViewportView(jTextArea2);
 
@@ -354,7 +358,7 @@ public class VirtualMagazine extends javax.swing.JFrame {
     
     /**
      * Saves the currents stored articles in the magazine
-     * @throws IOException 
+     * @throws IOException If isn't possible to save
      */
     public void save() throws IOException {
        FileOutputStream fos=null;
@@ -415,20 +419,20 @@ public class VirtualMagazine extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        magazine1.movetoPrevious();
+        
+        magazine1.movetoNext();
         paintThePage();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        magazine1.movetoNext();
+        magazine1.movetoPrevious();
         paintThePage();
     }//GEN-LAST:event_jButton3ActionPerformed
     
     /**
      * This method paints the current page according to
      * the last article, also creates the buttons previous and next
-     * @param node The node to which the article and its components are to be extracted
      */
     public void paintThePage(){
         

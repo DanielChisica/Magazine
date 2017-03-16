@@ -117,7 +117,7 @@ public class Magazine<T> implements Serializable {
      * Searches an article in the magazine
      *
      * @param element The element to be searched
-     * @return
+     * @return The element searched
      */
     public DoublyChainedNode search(Object element) {
         DoublyChainedNode pos = first;
@@ -148,7 +148,7 @@ public class Magazine<T> implements Serializable {
      * Asks to the magazine if this contains an article
      *
      * @param element The input article
-     * @return
+     * @return Boolean true if have it, false isn´t
      */
     public boolean contains(Object element) {
         if (search(element) != null) {
@@ -161,7 +161,7 @@ public class Magazine<T> implements Serializable {
     /**
      * Returns the first element in the magazine
      *
-     * @return
+     * @return An article
      */
     public Object firstArticle() {
         return (IsEmpty()) ? null : first.getObj();
