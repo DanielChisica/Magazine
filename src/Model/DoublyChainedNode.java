@@ -13,43 +13,12 @@ import java.io.Serializable;
  * @since 12 March 2017
  */
 public class DoublyChainedNode implements Serializable{
-    
-    /**
-     * This constructor initializes a doubly chained node with its object, its
-     * previous node and its next node
-     * @param obj The object of the node
-     * @param previous The reference to the previous element
-     * @param next The reference to the next element
-     */
-    public DoublyChainedNode(Object obj, DoublyChainedNode previous, DoublyChainedNode next) {
-        this.obj = obj;
-        this.previous = previous;
+
+    public DoublyChainedNode(DoublyChainedNode next, Object obj) {
         this.next = next;
+        this.obj = obj;
     }
-    
-    /**
-     * This constructor initializes a node just with its element
-     * @param value The element of the node
-     */
-    public DoublyChainedNode(Object value) {
-        obj=value;
-        previous=null;
-        next=null;
-    }
-    
-    /**
-     * Makes the first node in a list of doubly chained nodes
-     * @param value The element of the node
-     * @param n The reference to the next element
-     */
-     public DoublyChainedNode(Object value, DoublyChainedNode n){
-        obj=value;
-        previous=null;
-        next=n;
-    }
-    
-    
-    
+
      /**
       * Returns the object of the node
       * @return Object of a doubly chained node

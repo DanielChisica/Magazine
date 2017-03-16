@@ -4,21 +4,20 @@
  * and open the template in the editor.
  */
 package Controller;
+
 import Model.DoublyChainedNode;
 import java.io.Serializable;
 import java.util.Iterator;
 
 /**
- * The Magazine is based in a set of doubly chained nodes, this class contains
- * the required methods for its proper functioning 
- * @author Daniel Jiménez Chísica
- * @since 12 March 2017
+ *
+ * @author EAN
  */
-public class Magazine<T> implements Serializable {
-    /**
+public class Magazine<T> implements Serializable{
+      /**
      * crea un nodo inicio
      */
-    public DoublyChainedNode start;
+    public DoublyChainedNode first;
     /**
      * crea un nodo fin
      */
@@ -31,11 +30,13 @@ public class Magazine<T> implements Serializable {
     /**
      * metodo para hacer que la lista inicie vacia
      */
-    public Magazine() {
-        start=null;
-        last=null;
+    
+    public Magazine(){
+        first = null;
+        last = null;
     }
-    public T getCurrent(){
+
+    public T getActual() {
         return  (T) present.getObj();
     }
     public void movetoPrevious(){
@@ -45,16 +46,8 @@ public class Magazine<T> implements Serializable {
             }
                     
         }
+        
 }
-    
-    public boolean hasNext(){
-        return present.getNext()!=null;
-    }
-    
-    public boolean hasPrevious(){
-        return present.getPrevious()!=null;
-    }
-    
     public void movetoNext(){
         if (present !=null){
             if(present.getNext()!=null){
@@ -66,16 +59,15 @@ public class Magazine<T> implements Serializable {
      * metodo para ver si esta vacia la lista
      * @return true si la lista esta vacia, false si no
      */
-    
-    public boolean isEmpty() {
-        return  start == null;
+    public boolean IsEmpty() {
+        return first == null;
     }
     /**
      * metodo para vaciar la lista
      */
   
     public void Empty() {
-         last=start = null;
+         last=last = null;
          present=null;
     }
     /**
@@ -83,12 +75,12 @@ public class Magazine<T> implements Serializable {
      * @param elemento objecto a ingresar
      */
     public void add(Object element) {
-      start=new DoublyChainedNode(element,start);
-      present=start;
-      if (start.getNext()==null){
-          last=start;}
+      first=new DoublyChainedNode(first, element);
+      present=first;
+      if (first.getNext()==null){
+          last=first;}
       else{
-         start.getNext().setPrevious(start);
+          first.getNext().setPrevious(first);
       }
       
            
@@ -99,7 +91,7 @@ public class Magazine<T> implements Serializable {
      * @param elemento objecto a eliminar
      */
     public void delete(Object element) {
-        DoublyChainedNode pos = start;
+        DoublyChainedNode pos = first;
         while (pos != null && !pos.getObj().equals(element)) {
             pos = pos.getNext();
         }
@@ -114,7 +106,7 @@ public class Magazine<T> implements Serializable {
      * @return la posicion del nodo
      */
     public DoublyChainedNode search(Object element) {
-        DoublyChainedNode pos = start;
+        DoublyChainedNode pos = first;
         while (pos != null && !pos.getObj().equals(element)) {
             pos = pos.getNext();
         }
@@ -125,14 +117,13 @@ public class Magazine<T> implements Serializable {
      * @param elementoactual objecto que se va a cambiar
      * @param elementonuevo objecto que se va a introducir
      */
-    
-    public void sustituir(Object currentElement, Object newElement) {
-        DoublyChainedNode pos = start;
-        while (pos != null && !pos.getObj().equals(currentElement)) {
+    public void replace(Object currentelement, Object newelement) {
+        DoublyChainedNode pos = first;
+        while (pos != null && !pos.getObj().equals(newelement)) {
             pos = pos.getNext();
         }
         try {
-            pos.setObj(newElement);   
+            pos.setObj(newelement);   
         } catch (Exception e) {
         }
     }
@@ -152,9 +143,8 @@ public class Magazine<T> implements Serializable {
      * metodo para determinar el primer elemento
      * @return el objecto del nodo
      */
-
     public Object primerElemento() {
-        return (isEmpty()) ? null : start.getObj();
+        return (IsEmpty()) ? null : first.getObj();
     }
     /**
      * metodo para crear un iterador
@@ -169,20 +159,20 @@ public class Magazine<T> implements Serializable {
      */
     private class myIterator implements Iterator {
 
-          private DoublyChainedNode posicion = start;
+          private DoublyChainedNode position = first;
     /**
      * metodo para ver si la siguiente posicion de la lista esta vacia o no
      * @return true si no esta vacia, false si lo esta
      */      
-    public boolean hasNext() { return posicion != null;}
+    public boolean hasNext() { return position != null;}
     /**
      * metodo para recorrer la lista
      * @return el elemento que se busca
      */
       public Object next() {
       if (hasNext()) {
-	Object o = posicion.getObj();
-	posicion = posicion.getNext();
+	Object o = position.getObj();
+	position = position.getNext();
 	return o;
       }
         return null;

@@ -432,9 +432,9 @@ public class VirtualMagazine extends javax.swing.JFrame {
      */
     public void paintThePage(){
         
-      jTextField2.setText(((Article)(magazine1.getCurrent())).getTitle());
-      jTextArea2.setText(((Article)(magazine1.getCurrent())).getBodyText());
-      jLabel3.setIcon(new ImageIcon(getClass().getResource(((Article)(magazine1.getCurrent())).getUrlImage())));
+      jTextField2.setText(((Article)(magazine1.getActual())).getTitle());
+      jTextArea2.setText(((Article)(magazine1.getActual())).getBodyText());
+      jLabel3.setIcon(new ImageIcon(getClass().getResource(((Article)(magazine1.getActual())).getUrlImage())));
 
     }
     
