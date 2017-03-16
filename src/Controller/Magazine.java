@@ -10,85 +10,97 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 /**
+ * This class configurates the logic of the magazine, being this a doubly
+ * chained list
  *
- * @author EAN
+ * @author Daniel Jiménez Chísica
+ * @since 16 March 2017
  */
-public class Magazine<T> implements Serializable{
-      /**
-     * crea un nodo inicio
-     */
+public class Magazine<T> implements Serializable {
+
     public DoublyChainedNode first;
-    /**
-     * crea un nodo fin
-     */
     public DoublyChainedNode last;
-    /**
-     * 
-     */
     public DoublyChainedNode present;
-    
+
     /**
-     * metodo para hacer que la lista inicie vacia
+     * This constructor configurates the first and the last element as null
      */
-    
-    public Magazine(){
+    public Magazine() {
         first = null;
         last = null;
     }
 
-    public T getActual() {
-        return  (T) present.getObj();
-    }
-    public void movetoPrevious(){
-        if (present !=null){
-            if(present.getPrevious() !=null){
-                present=present.getPrevious();
-            }
-                    
-        }
-        
-}
-    public void movetoNext(){
-        if (present !=null){
-            if(present.getNext()!=null){
-                present=present.getNext();
-            }
-        }
-}
     /**
-     * metodo para ver si esta vacia la lista
-     * @return true si la lista esta vacia, false si no
+     * Returns the actual element
+     *
+     * @return The object of the actual element
+     */
+    public T getActual() {
+        return (T) present.getObj();
+    }
+
+    /**
+     * Moves the actual node to the previous element
+     */
+    public void movetoPrevious() {
+        if (present != null) {
+            if (present.getPrevious() != null) {
+                present = present.getPrevious();
+            } else {
+                present = last;
+            }
+        }
+    }
+
+    /**
+     * Moves the actual node to the next element
+     */
+    public void movetoNext() {
+        if (present != null) {
+            if (present.getNext() != null) {
+                present = present.getNext();
+            } else {
+                present = first;
+            }
+        }
+    }
+
+    /**
+     * Asks if the magazine is empty
+     *
+     * @return A boolean true if the magazine is null false isn´t
      */
     public boolean IsEmpty() {
         return first == null;
     }
+
     /**
-     * metodo para vaciar la lista
+     * Empty the magazine
      */
-  
     public void Empty() {
-         last=last = null;
-         present=null;
+        last = last = null;
+        present = null;
     }
+
     /**
-     * metodo para agregar objectos en los nodos de la lista
-     * @param elemento objecto a ingresar
+     * Adds an article to the magazine
+     *
+     * @param element The article to be added
      */
     public void add(Object element) {
-      first=new DoublyChainedNode(first, element);
-      present=first;
-      if (first.getNext()==null){
-          last=first;}
-      else{
-          first.getNext().setPrevious(first);
-      }
-      
-           
-
+        first = new DoublyChainedNode(first, element);
+        present = first;
+        if (first.getNext() == null) {
+            last = first;
+        } else {
+            first.getNext().setPrevious(first);
+        }
     }
+
     /**
-     * metodo para eliminar objectos de la lista
-     * @param elemento objecto a eliminar
+     * Deletes an article of the magazine
+     *
+     * @param element The article to be deleted
      */
     public void delete(Object element) {
         DoublyChainedNode pos = first;
@@ -96,14 +108,16 @@ public class Magazine<T> implements Serializable{
             pos = pos.getNext();
         }
         try {
-            pos = null;   
+            pos = null;
         } catch (Exception e) {
         }
     }
+
     /**
-     * metodo para buscar nodos en la lista
-     * @param elemento objecto del nodo que se busca
-     * @return la posicion del nodo
+     * Searches an article in the magazine
+     *
+     * @param element The element to be searched
+     * @return
      */
     public DoublyChainedNode search(Object element) {
         DoublyChainedNode pos = first;
@@ -112,10 +126,12 @@ public class Magazine<T> implements Serializable{
         }
         return pos;
     }
+
     /**
-     * metodo para sustituir objectos en la lista
-     * @param elementoactual objecto que se va a cambiar
-     * @param elementonuevo objecto que se va a introducir
+     * Replaces an an article in the magazine for other
+     *
+     * @param currentelement The actual article
+     * @param newelement The new article
      */
     public void replace(Object currentelement, Object newelement) {
         DoublyChainedNode pos = first;
@@ -123,67 +139,79 @@ public class Magazine<T> implements Serializable{
             pos = pos.getNext();
         }
         try {
-            pos.setObj(newelement);   
+            pos.setObj(newelement);
         } catch (Exception e) {
         }
     }
+
     /**
-     * metodo para ver si la lista contiene un elemento
-     * @param elemento objecto a verificar si esta o no
-     * @return true si el elemento esta, false si no
+     * Asks to the magazine if this contains an article
+     *
+     * @param element The input article
+     * @return
      */
     public boolean contains(Object element) {
-        if (search(element) != null){
+        if (search(element) != null) {
             return true;
         } else {
             return false;
         }
     }
+
     /**
-     * metodo para determinar el primer elemento
-     * @return el objecto del nodo
+     * Returns the first element in the magazine
+     *
+     * @return
      */
-    public Object primerElemento() {
+    public Object firstArticle() {
         return (IsEmpty()) ? null : first.getObj();
     }
+
     /**
-     * metodo para crear un iterador
-     * @return una lista recorrida
+     * Makes an iterator about the list
+     *
+     * @return The iterator about the list
      */
     public Iterator iterator() {
         return new myIterator();
     }
 
     /**
-     * Implementacion del iterador *
+     * The class iterator contains the logic of an iterator
      */
     private class myIterator implements Iterator {
 
-          private DoublyChainedNode position = first;
-    /**
-     * metodo para ver si la siguiente posicion de la lista esta vacia o no
-     * @return true si no esta vacia, false si lo esta
-     */      
-    public boolean hasNext() { return position != null;}
-    /**
-     * metodo para recorrer la lista
-     * @return el elemento que se busca
-     */
-      public Object next() {
-      if (hasNext()) {
-	Object o = position.getObj();
-	position = position.getNext();
-	return o;
-      }
-        return null;
-    }
-      /**
-       * metodo por si existe una exepcion
-       */
-        public void remove() {
-        throw new IllegalStateException();
-    }
-  }
+        private DoublyChainedNode position = first;
 
-    
+        /**
+         * Asks to the iterator if has an next element
+         *
+         * @return A boolean true if have it, false haven´t it
+         */
+        public boolean hasNext() {
+            return position != null;
+        }
+
+        /**
+         * The next element of the iterator
+         *
+         * @return
+         */
+        public Object next() {
+            if (hasNext()) {
+                Object o = position.getObj();
+                position = position.getNext();
+                return o;
+            }
+            return null;
+        }
+
+        /**
+         * Not implemented yet
+         */
+        public void remove() {
+            throw new IllegalStateException();
+        }
+    }
+
 }
