@@ -49,6 +49,7 @@ public class DoublyChainedNode implements Serializable{
     }
     
     
+    
      /**
       * Returns the object of the node
       * @return Object of a doubly chained node

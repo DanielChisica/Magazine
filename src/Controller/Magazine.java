@@ -6,6 +6,7 @@
 package Controller;
 import Model.DoublyChainedNode;
 import java.io.Serializable;
+import java.util.Iterator;
 
 /**
  * The Magazine is based in a set of doubly chained nodes, this class contains
@@ -13,142 +14,186 @@ import java.io.Serializable;
  * @author Daniel Jiménez Chísica
  * @since 12 March 2017
  */
-public class Magazine implements Serializable{
+public class Magazine<T> implements Serializable {
+    /**
+     * crea un nodo inicio
+     */
+    public DoublyChainedNode start;
+    /**
+     * crea un nodo fin
+     */
+    public DoublyChainedNode last;
+    /**
+     * 
+     */
+    public DoublyChainedNode present;
     
     /**
-     * Returns the first node of the magazine
-     * @return The main node
+     * metodo para hacer que la lista inicie vacia
      */
-    public DoublyChainedNode getNde() {
-        return nde;
+    public Magazine() {
+        start=null;
+        last=null;
+    }
+    public T getCurrent(){
+        return  (T) present.getObj();
+    }
+    public void movetoPrevious(){
+        if (present !=null){
+            if(present.getPrevious() !=null){
+                present=present.getPrevious();
+            }
+                    
+        }
+}
+    
+    public boolean hasNext(){
+        return present.getNext()!=null;
     }
     
-    /**
-     * Sets the main node of the magazine
-     * @param nde The input node
-     */
-    public void setNde(DoublyChainedNode nde) {
-        this.nde = nde;
-    }
-    private DoublyChainedNode nde;
-
-    public DoublyChainedNode getPresent() {
-        return present;
-    }
-
-    public void setPresent(DoublyChainedNode present) {
-        this.present = present;
-    }
-    private DoublyChainedNode present;
-    
-     public Object getCurrent(){
-        return present.getObj();
+    public boolean hasPrevious(){
+        return present.getPrevious()!=null;
     }
     
     public void movetoNext(){
-        if (present!=null) {
-            if (present.getNext()!=null) {
+        if (present !=null){
+            if(present.getNext()!=null){
                 present=present.getNext();
             }
         }
-        else{
-            System.out.println("Theres no a previous node");
-        }
-    }
-    
-    public void movetoPrevious(){
-         if (present!=null) {
-            if (present.getPrevious()!=null) {
-                present=present.getPrevious();
-            }
-        }
-        else{
-            System.out.println("Theres no a previous node");
-        }
-    }
-    
+}
     /**
-     * Puts an article in the end of the list
-     * @param article The input article
+     * metodo para ver si esta vacia la lista
+     * @return true si la lista esta vacia, false si no
      */
-    public void placeInTheEnd(Object article){
-        DoublyChainedNode newnode= new DoublyChainedNode(article);
-        if (nde==null) {
-            nde=newnode;
-        }
-        else{
-            DoublyChainedNode aux=nde;
-            while (aux.getNext()!=null) {                
-                aux=aux.getNext();
-            }
-            aux.setNext(newnode);
-            newnode.setPrevious(aux);
-        }
-        
-    }
     
-    /**
-     * Searches an article into the magazine
-     * @param element The  to be searched
-     * @return The node with its reference
-     */
-    public DoublyChainedNode search(Object element){
-        DoublyChainedNode position=nde;
-        while (position!=null && ! position.getObj().equals(element)) {            
-            position=position.getNext();
-        }
-        return position;
+    public boolean isEmpty() {
+        return  start == null;
     }
+    /**
+     * metodo para vaciar la lista
+     */
   
+    public void Empty() {
+         last=start = null;
+         present=null;
+    }
     /**
-     * Defines if the magazine contains an article
-     * @param element the article to be searched
-     * @return True if the magazine contains it, false isn't
+     * metodo para agregar objectos en los nodos de la lista
+     * @param elemento objecto a ingresar
+     */
+    public void add(Object element) {
+      start=new DoublyChainedNode(element,start);
+      present=start;
+      if (start.getNext()==null){
+          last=start;}
+      else{
+         start.getNext().setPrevious(start);
+      }
+      
+           
+
+    }
+    /**
+     * metodo para eliminar objectos de la lista
+     * @param elemento objecto a eliminar
+     */
+    public void delete(Object element) {
+        DoublyChainedNode pos = start;
+        while (pos != null && !pos.getObj().equals(element)) {
+            pos = pos.getNext();
+        }
+        try {
+            pos = null;   
+        } catch (Exception e) {
+        }
+    }
+    /**
+     * metodo para buscar nodos en la lista
+     * @param elemento objecto del nodo que se busca
+     * @return la posicion del nodo
+     */
+    public DoublyChainedNode search(Object element) {
+        DoublyChainedNode pos = start;
+        while (pos != null && !pos.getObj().equals(element)) {
+            pos = pos.getNext();
+        }
+        return pos;
+    }
+    /**
+     * metodo para sustituir objectos en la lista
+     * @param elementoactual objecto que se va a cambiar
+     * @param elementonuevo objecto que se va a introducir
+     */
+    
+    public void sustituir(Object currentElement, Object newElement) {
+        DoublyChainedNode pos = start;
+        while (pos != null && !pos.getObj().equals(currentElement)) {
+            pos = pos.getNext();
+        }
+        try {
+            pos.setObj(newElement);   
+        } catch (Exception e) {
+        }
+    }
+    /**
+     * metodo para ver si la lista contiene un elemento
+     * @param elemento objecto a verificar si esta o no
+     * @return true si el elemento esta, false si no
      */
     public boolean contains(Object element) {
-       return search(element)!=null;
+        if (search(element) != null){
+            return true;
+        } else {
+            return false;
+        }
     }
-    
-  /**
-   * Method used to create an iterator about the list
-   * @return The iterator about the list
-   */
-  public java.util.Iterator iterator() { 
-    return new MyIterator(); 
-  }
-	
-  /*
-   * Private class that implements the Iterator
-   */
-  private class MyIterator implements java.util.Iterator {
-    private DoublyChainedNode position = nde;
-    
     /**
-     * Asks to the current position, if this have a next object
-     * @return 
+     * metodo para determinar el primer elemento
+     * @return el objecto del nodo
      */
-    public boolean hasNext() { return position != null;}
-        
-      /**
-       * Returns the next object of the iterator
-       * @return The next object
-       */  
+
+    public Object primerElemento() {
+        return (isEmpty()) ? null : start.getObj();
+    }
+    /**
+     * metodo para crear un iterador
+     * @return una lista recorrida
+     */
+    public Iterator iterator() {
+        return new myIterator();
+    }
+
+    /**
+     * Implementacion del iterador *
+     */
+    private class myIterator implements Iterator {
+
+          private DoublyChainedNode posicion = start;
+    /**
+     * metodo para ver si la siguiente posicion de la lista esta vacia o no
+     * @return true si no esta vacia, false si lo esta
+     */      
+    public boolean hasNext() { return posicion != null;}
+    /**
+     * metodo para recorrer la lista
+     * @return el elemento que se busca
+     */
       public Object next() {
       if (hasNext()) {
-	Object o = position.getObj();
-	position = position.getNext();
+	Object o = posicion.getObj();
+	posicion = posicion.getNext();
 	return o;
       }
-      return null;
+        return null;
     }
-  
-   
-    /**
-     * Shows a message indicating that isn't possible remove an object of the
-     * iterator
-     */  
-    public void remove() {
-      throw new IllegalStateException();
+      /**
+       * metodo por si existe una exepcion
+       */
+        public void remove() {
+        throw new IllegalStateException();
     }
   }
+
+    
 }

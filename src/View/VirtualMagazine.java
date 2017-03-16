@@ -44,7 +44,7 @@ public class VirtualMagazine extends javax.swing.JFrame {
         initComponents();
         read();
         try {
-           // paintThePage(mag.getNde());
+           paintThePage();
         } catch (Exception e) {
         }
         this.addWindowListener(new java.awt.event.WindowAdapter(){
@@ -110,7 +110,6 @@ public class VirtualMagazine extends javax.swing.JFrame {
 
         jTextField2.setEditable(false);
         jTextField2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jTextField2.setBorder(null);
         jTextField2.setFocusable(false);
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,13 +117,10 @@ public class VirtualMagazine extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane2.setBorder(null);
-
         jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
         jTextArea2.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jTextArea2.setRows(5);
-        jTextArea2.setBorder(null);
         jTextArea2.setFocusable(false);
         jScrollPane2.setViewportView(jTextArea2);
 
@@ -167,6 +163,11 @@ public class VirtualMagazine extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 204), 3));
 
         jButton2.setText("Previous");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -184,6 +185,11 @@ public class VirtualMagazine extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 204), 3));
 
         jButton3.setText("Next");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -339,7 +345,7 @@ public class VirtualMagazine extends javax.swing.JFrame {
             }
             
             Article art1=new Article(jTextField1.getText(), jTextArea1.getText(),selectedURL);
-            magazine1.placeInTheEnd(art1);
+            magazine1.add(art1);
             
            paintThePage();
         }
@@ -406,6 +412,18 @@ public class VirtualMagazine extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        magazine1.movetoPrevious();
+        paintThePage();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        magazine1.movetoNext();
+        paintThePage();
+    }//GEN-LAST:event_jButton3ActionPerformed
     
     /**
      * This method paints the current page according to
@@ -417,28 +435,7 @@ public class VirtualMagazine extends javax.swing.JFrame {
       jTextField2.setText(((Article)(magazine1.getCurrent())).getTitle());
       jTextArea2.setText(((Article)(magazine1.getCurrent())).getBodyText());
       jLabel3.setIcon(new ImageIcon(getClass().getResource(((Article)(magazine1.getCurrent())).getUrlImage())));
-      jButton2.setVisible(true);
-      jButton3.setVisible(true);
-        
 
-       
-        jButton2.addActionListener(new ActionListener() { 
-            @Override
-            public void actionPerformed(ActionEvent e) {  
-                  magazine1.movetoPrevious();
-                  paintThePage();
-           }
-        } );
-        
-      
-         jButton3.addActionListener(new ActionListener() { 
-           @Override
-            public void actionPerformed(ActionEvent e) {
-                        magazine1.movetoNext();
-                        paintThePage();
-                    
-           }
-        } );
     }
     
     /**
@@ -492,7 +489,6 @@ public class VirtualMagazine extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
